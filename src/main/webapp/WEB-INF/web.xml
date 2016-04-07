@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER. OssTown Corp. 
+	Corp. Product: Hiperium<description>Hiperium Project for Smart Homes</description> 
+	Created: 12-Mar-2011 - 00:00:00 The contents of this file are copyrighted 
+	by OssTown Corp. and it is protected by the license: "GPL V3." You can find 
+	a copy of this license at: http://www.osstown.com/hiperium/licence.html Copyright 
+	2013. All rights reserved. -->
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	version="3.0">
+	
+    <!-- **************************************************************** -->
+	<!-- **************************************************************** -->
+	<!-- ***************************  GENERAL  ************************** -->
+	<!-- **************************************************************** -->
+	<!-- **************************************************************** -->
+	<description>Hiperium Project for Smart Homes</description>
+	<display-name>hiperium-messaging</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+	
+	<!-- **************************************************************** -->
+	<!-- **************************************************************** -->
+	<!-- **************************  SECURITY  ************************** -->
+	<!-- **************************************************************** -->
+	<!-- **************************************************************** -->
+	<login-config>
+		<auth-method>BASIC</auth-method>
+	</login-config>
+	<security-constraint>
+		<display-name>Force the use of a secure connection</display-name>
+		<web-resource-collection>
+			<web-resource-name>Viewpoint Secure URLs</web-resource-name>
+			<url-pattern>/*</url-pattern>
+		</web-resource-collection>
+		<user-data-constraint>
+			<transport-guarantee>NONE</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
+</web-app>

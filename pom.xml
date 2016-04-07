@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER. Hiperium Corp. 
+	Corp. Product: Hiperium<description>Hiperium Project for Smart Homes</description> 
+	Created: 13-Ago-2015 - 00:00:00 The contents of this file are copyrighted 
+	by OssTown Corp. and it is protected by the license: "GPL V3." You can find 
+	a copy of this license at: http://www.hiperium.com/hiperium/licence.html 
+	Copyright 2015. All rights reserved. -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.hiperium</groupId>
+	<artifactId>hiperium-messaging</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<name>Hiperium Project Messaging</name>
+	<description>Messaging for topics and queues for the Hiperium Project.</description>
+
+	<licenses>
+		<license>
+			<name>GNU General Public License, Version 3</name>
+			<distribution>repo</distribution>
+			<url>http://www.gnu.org/copyleft/gpl.html</url>
+		</license>
+	</licenses>
+
+	<organization>
+		<name>Hiperium Corporation</name>
+		<url>http://www.hiperium.com</url>
+	</organization>
+
+	<developers>
+		<developer>
+			<id>asolorzano</id>
+			<name>Andres Solorzano</name>
+			<email>andres.solorzano@hiperium.com</email>
+			<organization>Hiperium Corporation</organization>
+			<roles>
+				<role>Hiperium Project Architect</role>
+			</roles>
+			<timezone>-5</timezone>
+		</developer>
+	</developers>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<version.jboss.maven.plugin>7.5.Final</version.jboss.maven.plugin>
+		<version.jboss.as>7.1.1.Final</version.jboss.as>
+		<version.war.plugin>2.4</version.war.plugin>
+		<maven.compiler.target>1.7</maven.compiler.target>
+		<maven.compiler.source>1.7</maven.compiler.source>
+	</properties>
+
+	<repositories>
+		<repository>
+			<id>hiperium</id>
+			<name>Hiperium Project Public Repository</name>
+			<url>http://repository-hiperium.rhcloud.com/content/groups/public/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>hiperium</id>
+			<name>Hiperium Project Public Repository</name>
+			<url>http://repository-hiperium.rhcloud.com/content/groups/public/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<!-- Deploy the project in the follow Nexus Public Repository. -->
+	<distributionManagement>
+		<repository>
+			<id>hiperium</id>
+			<name>Hiperium Releases</name>
+			<url>http://repository-hiperium.rhcloud.com/content/repositories/releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>hiperium</id>
+			<name>Hiperium Snapshots</name>
+			<url>http://repository-hiperium.rhcloud.com/content/repositories/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- Dependencies for the Java EE 6 Specification -->
+			<dependency>
+				<groupId>org.jboss.spec</groupId>
+				<artifactId>jboss-javaee-6.0</artifactId>
+				<version>3.0.3.Final</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+		<!-- Import the EJB API provided in JBoss AS 7 -->
+		<dependency>
+			<groupId>org.jboss.spec.javax.ejb</groupId>
+			<artifactId>jboss-ejb-api_3.1_spec</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- Import EJB Interceptor API provided in JBoss AS 7 -->
+		<dependency>
+			<groupId>org.jboss.spec.javax.interceptor</groupId>
+			<artifactId>jboss-interceptors-api_1.1_spec</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- Import the JMS API provided in JBoss AS 7 -->
+		<dependency>
+			<groupId>org.jboss.spec.javax.jms</groupId>
+			<artifactId>jboss-jms-api_1.1_spec</artifactId>
+		</dependency>
+		<!-- Import the Javax Validation API provided in JBoss AS 7 -->
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- APACHE HTTP CLIENTS -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpcore</artifactId>
+			<version>4.4.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5</version>
+		</dependency>
+		<!-- APACHE COMMONS -->
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.6</version>
+		</dependency>
+		<!-- APACHE CURATOR - SERVICE REGISTRY CLIENT FOR ZOOKEEPER -->
+		<dependency>
+			<groupId>org.apache.curator</groupId>
+			<artifactId>curator-x-discovery</artifactId>
+			<version>2.9.1</version>
+			<exclusions>
+				<!-- JBoss Client has an Netty dependency. This avoid deployment exceptions. -->
+				<exclusion>
+					<groupId>io.netty</groupId>
+					<artifactId>netty</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- GSON: To manage JSON objects. -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.1</version>
+		</dependency>
+		<!-- APACHE LOG4J -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.16</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<!-- Set the name of the war, used as the context root when the app is 
+			deployed -->
+		<finalName>${project.artifactId}</finalName>
+		<plugins>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>${version.war.plugin}</version>
+				<configuration>
+					<failOnMissingWebXml>true</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+			<!-- JBoss AS plugin to deploy war -->
+			<plugin>
+				<groupId>org.jboss.as.plugins</groupId>
+				<artifactId>jboss-as-maven-plugin</artifactId>
+				<version>${version.jboss.maven.plugin}</version>
+			</plugin>
+		</plugins>
+	</build>
+</project>
