@@ -14,7 +14,7 @@ package com.hiperium.messaging.bo.generic;
 
 import javax.ejb.EJB;
 
-import com.hiperium.messaging.bo.security.SessionManagerBO;
+import com.hiperium.messaging.bo.identity.SessionManagerBO;
 
 /**
  * This class is an generalization of business objects.
@@ -24,9 +24,9 @@ import com.hiperium.messaging.bo.security.SessionManagerBO;
  */
 public class GenericBusinessObject {
 
-    /** The property sessionManager. */
+    /** The property sessionManagerBO. */
     @EJB
-    private SessionManagerBO sessionManager;
+    private SessionManagerBO sessionManagerBO;
 
     /**
      *
@@ -39,7 +39,7 @@ public class GenericBusinessObject {
      *
      * @return
      */
-    public SessionManagerBO getSessionManager() {
-        return sessionManager;
+    public SessionManagerBO getSessionManagerBO() {
+        return sessionManagerBO;
     }
 }

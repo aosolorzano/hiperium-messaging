@@ -10,7 +10,7 @@
  * Copyright 2014 Andres Solorzano. All rights reserved.
  * 
  */
-package com.hiperium.messaging.bo.device.impl;
+package com.hiperium.messaging.bo.device.mdb;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.ActivationConfigProperty;
@@ -20,12 +20,12 @@ import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
 
+import com.hiperium.common.services.dto.DeviceDTO;
+import com.hiperium.common.services.gson.converter.DeviceConverter;
+import com.hiperium.common.services.logger.HiperiumLogger;
 import com.hiperium.messaging.bo.device.DeviceBO;
 import com.hiperium.messaging.bo.generic.GenericBusinessObject;
-import com.hiperium.messaging.common.ConfigurationBean;
-import com.hiperium.messaging.dto.DeviceDTO;
-import com.hiperium.messaging.gson.converter.DeviceConverter;
-import com.hiperium.messaging.logger.HiperiumLogger;
+import com.hiperium.messaging.common.bean.ConfigurationBean;
 
 /**
  * This class represents a Message Driven Bean that gets a message from the cloud server for
@@ -70,7 +70,7 @@ public class DeviceMDB extends GenericBusinessObject implements MessageListener 
 			LOGGER.debug("Message: " + jsonMessage);
 			DeviceDTO deviceDTO = this.converter.fromJsonToDeviceDTO(jsonMessage);
 			// The token ID is the session identifier obtained from Hiperium Home at start up time.
-			if(deviceDTO != null && super.getSessionManager().isUserLoggedIn(deviceDTO.getTokenId())) {
+			if(deviceDTO != null && super.getSessionManagerBO().isUserLoggedIn(deviceDTO.getTokenId())) {
 				this.deviceBO.homeOperation(deviceDTO, deviceDTO.getTokenId());
 			}
 		} catch (Exception e) {

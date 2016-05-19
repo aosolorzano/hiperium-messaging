@@ -20,6 +20,54 @@
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
+	<distributable/>
+	
+	<!-- **************************************************************** -->
+	<!-- **************************************************************** -->
+	<!-- **************************  FILTERS  *************************** -->
+	<!-- **************************************************************** -->
+	<!-- **************************************************************** -->
+	<!-- ACCESS CONTROL FILTERS -->
+	<filter>
+		<filter-name>CorsFilter</filter-name>
+		<filter-class>com.hiperium.messaging.restful.filter.CorsFilter</filter-class>
+		<async-supported>true</async-supported>
+	</filter>
+	<filter>
+		<filter-name>JsonpFilter</filter-name>
+		<filter-class>com.hiperium.messaging.restful.filter.JsonpFilter</filter-class>
+		<async-supported>true</async-supported>
+	</filter>
+	<filter>
+		<filter-name>TokenFilter</filter-name>
+		<filter-class>com.hiperium.messaging.restful.filter.TokenFilter</filter-class>
+		<async-supported>true</async-supported>
+	</filter>
+	
+	<!-- **************************************************************** -->
+	<!-- **************************************************************** -->
+	<!-- **********************  FILTER MAPPINGS  *********************** -->
+	<!-- **************************************************************** -->
+	<!-- **************************************************************** -->
+	<!-- ACCESS CONTROL FILTER MAPPINGS -->
+	<filter-mapping>
+		<filter-name>CorsFilter</filter-name>
+		<url-pattern>/api/messaging/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>JsonpFilter</filter-name>
+		<url-pattern>/api/messaging/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>TokenFilter</filter-name>
+		<url-pattern>/api/messaging/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
 	
 	<!-- **************************************************************** -->
 	<!-- **************************************************************** -->

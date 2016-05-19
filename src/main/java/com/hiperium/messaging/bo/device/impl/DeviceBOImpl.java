@@ -15,27 +15,27 @@ package com.hiperium.messaging.bo.device.impl;
 import java.util.Collection;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.ejb.Lock;
 import javax.ejb.LockType;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
+import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
 
+import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.x.discovery.ServiceDiscovery;
 import org.apache.curator.x.discovery.ServiceDiscoveryBuilder;
 import org.apache.curator.x.discovery.ServiceInstance;
 import org.apache.curator.x.discovery.details.JsonInstanceSerializer;
 
+import com.hiperium.common.services.dto.DeviceDTO;
+import com.hiperium.common.services.logger.HiperiumLogger;
+import com.hiperium.common.services.restful.control.ControlRegistryPath;
+import com.hiperium.common.services.restful.control.DeviceService;
+import com.hiperium.common.services.restful.dto.ServiceDetailsDTO;
 import com.hiperium.messaging.bo.device.DeviceBO;
-import com.hiperium.messaging.common.ConfigurationBean;
-import com.hiperium.messaging.dto.DeviceDTO;
-import com.hiperium.messaging.logger.HiperiumLogger;
-import com.hiperium.messaging.restful.RegistryControlPath;
-import com.hiperium.messaging.restful.control.DeviceService;
-import com.hiperium.messaging.restful.dto.ServiceDetailsDTO;
 
 /**
  * 
@@ -48,15 +48,16 @@ import com.hiperium.messaging.restful.dto.ServiceDetailsDTO;
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 public class DeviceBOImpl implements DeviceBO {
 
-	/** The LOGGER property for logger messages. */
-	private static final HiperiumLogger LOGGER = HiperiumLogger.getLogger(DeviceBOImpl.class);
-	
 	/** The property deviceService. */
 	private DeviceService deviceService;
 	
-	/** The property configurationBean. */
-	@EJB
-	private ConfigurationBean configurationBean;
+	/** The property log. */
+	@Inject
+	private HiperiumLogger log;
+	
+	/** The property curatorClient. */
+	@Inject
+	private CuratorFramework curatorClient;
 	
 	/** The property serviceDiscovery. */
 	private ServiceDiscovery<ServiceDetailsDTO> serviceDiscovery;
@@ -71,8 +72,8 @@ public class DeviceBOImpl implements DeviceBO {
 		this.deviceService = DeviceService.getInstance();
 		this.serializer = new JsonInstanceSerializer<ServiceDetailsDTO>(ServiceDetailsDTO.class); // Payload Serializer
 		this.serviceDiscovery = ServiceDiscoveryBuilder.builder(ServiceDetailsDTO.class)
-				.client(this.configurationBean.getClient())
-				.basePath(RegistryControlPath.BASE_PATH)
+				.client(this.curatorClient)
+				.basePath(ControlRegistryPath.BASE_PATH)
 				.serializer(this.serializer)
 				.build();
 	}
@@ -82,10 +83,10 @@ public class DeviceBOImpl implements DeviceBO {
 	 */
 	@Override
 	public void homeOperation(@NotNull DeviceDTO deviceDTO, @NotNull String tokenID) throws Exception {
-		LOGGER.debug("homeOperation - START");
+		this.log.debug("homeOperation - START");
 		// The token ID is the session identifier obtained from Hiperium Home at start up time.
-		this.deviceService.homeOperation(this.getServiceURI(RegistryControlPath.DEVICE_HOME_OPERATION), deviceDTO, tokenID); 
-		LOGGER.debug("homeOperation - END");
+		this.deviceService.homeOperation(this.getServiceURI(ControlRegistryPath.DEVICE_HOME_OPERATION), deviceDTO, tokenID); 
+		this.log.debug("homeOperation - END");
 	}
 
 	 /**

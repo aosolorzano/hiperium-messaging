@@ -10,9 +10,11 @@
  * Copyright 2014 Andres Solorzano. All rights reserved.
  * 
  */
-package com.hiperium.messaging.bo.security;
+package com.hiperium.messaging.bo.identity;
 
 import javax.ejb.Local;
+
+import com.hiperium.common.services.exception.InformationException;
 
 /**
  * This interface declare the methods needed to zone operations.
@@ -27,8 +29,16 @@ public interface SessionManagerBO {
 	 * 
 	 * @param userToken
 	 * @return
-	 * @throws Exception
+	 * @throws InformationException
 	 */
-	boolean isUserLoggedIn(String userToken) throws Exception;
+	boolean isUserLoggedIn(String userToken) throws InformationException;
+	
+	/**
+	 * 
+	 * @param homeToken
+	 * @return
+	 * @throws InformationException
+	 */
+	boolean isHomeLoggedIn(String homeToken) throws InformationException;
 	
 }
