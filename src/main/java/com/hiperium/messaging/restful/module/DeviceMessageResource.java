@@ -25,10 +25,10 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.hiperium.common.services.dto.DeviceDTO;
-import com.hiperium.common.services.exception.PropertyValidationException;
-import com.hiperium.common.services.logger.HiperiumLogger;
-import com.hiperium.common.services.restful.messaging.MessagingRestfulPath;
+import com.hiperium.commons.client.dto.DeviceDTO;
+import com.hiperium.commons.services.exception.PropertyValidationException;
+import com.hiperium.commons.services.logger.HiperiumLogger;
+import com.hiperium.commons.services.restful.path.MessagingRestfulPath;
 import com.hiperium.messaging.common.bean.ConfigurationBean;
 import com.hiperium.messaging.restful.generic.GenericREST;
 

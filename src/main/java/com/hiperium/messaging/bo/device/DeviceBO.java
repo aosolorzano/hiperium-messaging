@@ -15,7 +15,7 @@ package com.hiperium.messaging.bo.device;
 import javax.ejb.Local;
 import javax.validation.constraints.NotNull;
 
-import com.hiperium.common.services.dto.DeviceDTO;
+import com.hiperium.commons.client.dto.DeviceDTO;
 
 /**
  * This interface declares the methods needed for the device service.

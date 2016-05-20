@@ -14,7 +14,7 @@ package com.hiperium.messaging.bo.identity;
 
 import javax.ejb.Local;
 
-import com.hiperium.common.services.exception.InformationException;
+import com.hiperium.commons.client.exception.InformationException;
 
 /**
  * This interface declare the methods needed to zone operations.

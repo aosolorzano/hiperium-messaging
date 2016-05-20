@@ -26,9 +26,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.hiperium.common.services.exception.InformationException;
-import com.hiperium.common.services.logger.HiperiumLogger;
-import com.hiperium.common.services.restful.messaging.MessagingRestfulPath;
+import com.hiperium.commons.client.exception.InformationException;
+import com.hiperium.commons.services.logger.HiperiumLogger;
+import com.hiperium.commons.services.restful.path.MessagingRestfulPath;
 import com.hiperium.messaging.bo.identity.SessionManagerBO;
 
 

@@ -122,6 +122,12 @@
 	</dependencyManagement>
 
 	<dependencies>
+		<!-- Import the Hiperium Common Client Services dependency. -->
+		<dependency>
+			<groupId>com.hiperium</groupId>
+			<artifactId>hiperium-client</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
 		<!-- Import the Hiperium Common Services dependency. -->
 		<dependency>
 			<groupId>com.hiperium</groupId>

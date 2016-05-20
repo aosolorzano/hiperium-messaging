@@ -31,11 +31,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.hiperium.common.services.logger.HiperiumLogger;
-import com.hiperium.common.services.restful.dto.ServiceDetailsDTO;
-import com.hiperium.common.services.restful.messaging.MessagingRegistryPath;
-import com.hiperium.common.services.restful.messaging.MessagingRestfulPath;
-import com.hiperium.common.services.restful.registry.ServiceRegister;
+import com.hiperium.commons.client.dto.ServiceDetailsDTO;
+import com.hiperium.commons.client.registry.ServiceRegister;
+import com.hiperium.commons.client.registry.path.MessagingRegistryPath;
+import com.hiperium.commons.services.logger.HiperiumLogger;
+import com.hiperium.commons.services.restful.path.MessagingRestfulPath;
 
 /**
  * 

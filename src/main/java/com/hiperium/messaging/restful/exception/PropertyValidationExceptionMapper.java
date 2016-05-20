@@ -22,8 +22,8 @@ import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
-import com.hiperium.common.services.exception.PropertyValidationException;
-import com.hiperium.common.services.logger.HiperiumLogger;
+import com.hiperium.commons.services.exception.PropertyValidationException;
+import com.hiperium.commons.services.logger.HiperiumLogger;
 
 
 /**

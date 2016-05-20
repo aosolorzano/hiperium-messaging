@@ -29,11 +29,11 @@ import org.apache.curator.x.discovery.ServiceDiscoveryBuilder;
 import org.apache.curator.x.discovery.ServiceInstance;
 import org.apache.curator.x.discovery.details.JsonInstanceSerializer;
 
-import com.hiperium.common.services.exception.InformationException;
-import com.hiperium.common.services.restful.dto.ServiceDetailsDTO;
-import com.hiperium.common.services.restful.identity.IdentityRegistryPath;
-import com.hiperium.common.services.restful.identity.IdentityService;
+import com.hiperium.commons.client.dto.ServiceDetailsDTO;
+import com.hiperium.commons.client.exception.InformationException;
+import com.hiperium.commons.client.registry.path.IdentityRegistryPath;
 import com.hiperium.messaging.bo.identity.SessionManagerBO;
+import com.hiperium.messaging.service.client.IdentityService;
 
 /**
  * This is a bypass bean that is used between Web components and EJB components

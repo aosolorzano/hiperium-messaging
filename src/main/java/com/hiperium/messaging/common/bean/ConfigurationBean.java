@@ -30,7 +30,7 @@ import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 
-import com.hiperium.common.services.logger.HiperiumLogger;
+import com.hiperium.commons.services.logger.HiperiumLogger;
 
 /**
  * 

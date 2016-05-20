@@ -18,8 +18,8 @@ import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
-import com.hiperium.common.services.exception.InformationException;
-import com.hiperium.common.services.logger.HiperiumLogger;
+import com.hiperium.commons.client.exception.InformationException;
+import com.hiperium.commons.services.logger.HiperiumLogger;
 
 
 /**

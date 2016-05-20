@@ -22,7 +22,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 
-import com.hiperium.common.services.logger.HiperiumLogger;
+import com.hiperium.commons.services.logger.HiperiumLogger;
 
 /**
  *

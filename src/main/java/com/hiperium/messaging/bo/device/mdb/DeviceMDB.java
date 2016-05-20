@@ -20,12 +20,12 @@ import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
 
-import com.hiperium.common.services.dto.DeviceDTO;
-import com.hiperium.common.services.gson.converter.DeviceConverter;
-import com.hiperium.common.services.logger.HiperiumLogger;
+import com.hiperium.commons.client.dto.DeviceDTO;
+import com.hiperium.commons.services.logger.HiperiumLogger;
 import com.hiperium.messaging.bo.device.DeviceBO;
 import com.hiperium.messaging.bo.generic.GenericBusinessObject;
 import com.hiperium.messaging.common.bean.ConfigurationBean;
+import com.hiperium.messaging.service.converter.DeviceConverter;
 
 /**
  * This class represents a Message Driven Bean that gets a message from the cloud server for

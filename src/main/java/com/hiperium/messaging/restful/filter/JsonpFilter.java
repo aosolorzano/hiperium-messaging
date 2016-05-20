@@ -29,8 +29,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 
-import com.hiperium.common.services.exception.InformationException;
-import com.hiperium.common.services.logger.HiperiumLogger;
+import com.hiperium.commons.client.exception.InformationException;
+import com.hiperium.commons.services.logger.HiperiumLogger;
 
 /**
  * 

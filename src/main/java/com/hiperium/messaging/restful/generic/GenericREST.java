@@ -24,7 +24,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-import com.hiperium.common.services.exception.PropertyValidationException;
+import com.hiperium.commons.services.exception.PropertyValidationException;
 
 /**
  * This class implements all needed methods for all RESTful Web Services.

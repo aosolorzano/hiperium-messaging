@@ -30,12 +30,12 @@ import org.apache.curator.x.discovery.ServiceDiscoveryBuilder;
 import org.apache.curator.x.discovery.ServiceInstance;
 import org.apache.curator.x.discovery.details.JsonInstanceSerializer;
 
-import com.hiperium.common.services.dto.DeviceDTO;
-import com.hiperium.common.services.logger.HiperiumLogger;
-import com.hiperium.common.services.restful.control.ControlRegistryPath;
-import com.hiperium.common.services.restful.control.DeviceService;
-import com.hiperium.common.services.restful.dto.ServiceDetailsDTO;
+import com.hiperium.commons.client.dto.DeviceDTO;
+import com.hiperium.commons.client.dto.ServiceDetailsDTO;
+import com.hiperium.commons.client.registry.path.ControlRegistryPath;
+import com.hiperium.commons.services.logger.HiperiumLogger;
 import com.hiperium.messaging.bo.device.DeviceBO;
+import com.hiperium.messaging.service.client.DeviceService;
 
 /**
  * 
