@@ -15,6 +15,8 @@ package com.hiperium.messaging.bo.identity.impl;
 import java.util.Collection;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.DependsOn;
+import javax.ejb.EJB;
 import javax.ejb.Lock;
 import javax.ejb.LockType;
 import javax.ejb.Singleton;
@@ -33,7 +35,7 @@ import com.hiperium.commons.client.dto.ServiceDetailsDTO;
 import com.hiperium.commons.client.exception.InformationException;
 import com.hiperium.commons.client.registry.path.IdentityRegistryPath;
 import com.hiperium.messaging.bo.identity.SessionManagerBO;
-import com.hiperium.messaging.service.client.IdentityService;
+import com.hiperium.messaging.common.service.IdentityServiceManager;
 
 /**
  * This is a bypass bean that is used between Web components and EJB components
@@ -45,11 +47,13 @@ import com.hiperium.messaging.service.client.IdentityService;
 @Startup
 @Singleton
 @Lock(LockType.READ)
+@DependsOn("ConfigurationBean")
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 public class SessionManagerBOImpl implements SessionManagerBO {
 
-    /** The property identityService. */
-	private IdentityService identityService;
+    /** The property identityServiceManager. */
+	@EJB
+	private IdentityServiceManager identityServiceManager;
 	
 	/** The property curatorClient. */
 	@Inject
@@ -65,7 +69,6 @@ public class SessionManagerBOImpl implements SessionManagerBO {
 	 */
 	@PostConstruct
 	public void init() {
-		this.identityService = IdentityService.getInstance();
 		this.serializer = new JsonInstanceSerializer<ServiceDetailsDTO>(ServiceDetailsDTO.class); // Payload Serializer
 		this.serviceDiscovery = ServiceDiscoveryBuilder.builder(ServiceDetailsDTO.class)
 				.client(this.curatorClient)
@@ -79,7 +82,7 @@ public class SessionManagerBOImpl implements SessionManagerBO {
 	 */
 	@Override
 	public boolean isUserLoggedIn(String userToken) throws InformationException {
-		return this.identityService.isUserLoggedIn(this.getServiceURI(IdentityRegistryPath.IS_USER_LOGGED_IN), userToken);
+		return this.identityServiceManager.isUserLoggedIn(this.getServiceURI(IdentityRegistryPath.IS_USER_LOGGED_IN), userToken);
 	}
 	
 	/**
@@ -87,7 +90,7 @@ public class SessionManagerBOImpl implements SessionManagerBO {
 	 */
 	@Override
 	public boolean isHomeLoggedIn(String homeToken) throws InformationException {
-		return this.identityService.isHomeLoggedIn(this.getServiceURI(IdentityRegistryPath.IS_HOME_LOGGED_IN), homeToken);
+		return this.identityServiceManager.isHomeLoggedIn(this.getServiceURI(IdentityRegistryPath.IS_HOME_LOGGED_IN), homeToken);
 	}
 	
 	/**

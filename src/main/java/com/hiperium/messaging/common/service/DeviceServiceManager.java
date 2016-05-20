@@ -10,8 +10,15 @@
  * Copyright 2014 Andres Solorzano. All rights reserved.
  * 
  */
-package com.hiperium.messaging.service.client;
+package com.hiperium.messaging.common.service;
 
+import javax.ejb.LocalBean;
+import javax.ejb.Lock;
+import javax.ejb.LockType;
+import javax.ejb.Singleton;
+import javax.ejb.Startup;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.validation.constraints.NotNull;
 
 import com.hiperium.commons.client.dto.DeviceDTO;
@@ -27,35 +34,18 @@ import com.hiperium.messaging.service.converter.DeviceConverter;
  * @author Andres Solorzano
  * 
  */
-public final class DeviceService extends HttpClient {
+@Startup
+@Singleton
+@LocalBean
+@Lock(LockType.READ)
+@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+public class DeviceServiceManager extends HttpClient {
 	
 	/** The LOGGER property for logger messages. */
-	private static final HiperiumLogger LOGGER = HiperiumLogger.getLogger(DeviceService.class);
+	private static final HiperiumLogger LOGGER = HiperiumLogger.getLogger(DeviceServiceManager.class);
 	
 	/** The property converter. */
 	private DeviceConverter converter;
-	
-	/** The property service. */
-	private static DeviceService service = null;
-	
-	/**
-	 * Class constructor.
-	 */
-	private DeviceService() {
-		// Nothing to do.
-	}
-	
-	/**
-	 * Return the singleton instance.
-	 * 
-	 * @return
-	 */
-	public static DeviceService getInstance() {
-		if(service == null) {
-			service = new DeviceService();
-		}
-		return service;
-	}
 	
 	/**
 	 * 

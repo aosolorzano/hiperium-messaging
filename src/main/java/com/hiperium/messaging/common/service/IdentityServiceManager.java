@@ -10,8 +10,15 @@
  * Copyright 2014 Andres Solorzano. All rights reserved.
  * 
  */
-package com.hiperium.messaging.service.client;
+package com.hiperium.messaging.common.service;
 
+import javax.ejb.LocalBean;
+import javax.ejb.Lock;
+import javax.ejb.LockType;
+import javax.ejb.Singleton;
+import javax.ejb.Startup;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.validation.constraints.NotNull;
 
 import com.hiperium.commons.client.exception.InformationException;
@@ -25,32 +32,15 @@ import com.hiperium.commons.services.logger.HiperiumLogger;
  * @author Andres Solorzano
  * 
  */
-public final class IdentityService extends HttpClient {
+@Startup
+@Singleton
+@LocalBean
+@Lock(LockType.READ)
+@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+public class IdentityServiceManager extends HttpClient {
 
 	/** The LOGGER property for logger messages. */
-	private static final HiperiumLogger LOGGER = HiperiumLogger.getLogger(IdentityService.class);
-    
-	/** The property service. */
-	private static IdentityService service = null;
-	
-	/**
-	 * Class constructor.
-	 */
-	private IdentityService() {
-		super();
-	}
-
-	/**
-	 * Return the singleton instance.
-	 * 
-	 * @return
-	 */
-	public static IdentityService getInstance() {
-		if(service == null) {
-			service = new IdentityService();
-		}
-		return service;
-	}
+	private static final HiperiumLogger LOGGER = HiperiumLogger.getLogger(IdentityServiceManager.class);
 	
 	/**
 	 * 

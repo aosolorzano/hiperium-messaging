@@ -15,6 +15,7 @@ package com.hiperium.messaging.bo.device.impl;
 import java.util.Collection;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.ejb.Lock;
 import javax.ejb.LockType;
 import javax.ejb.Singleton;
@@ -35,7 +36,7 @@ import com.hiperium.commons.client.dto.ServiceDetailsDTO;
 import com.hiperium.commons.client.registry.path.ControlRegistryPath;
 import com.hiperium.commons.services.logger.HiperiumLogger;
 import com.hiperium.messaging.bo.device.DeviceBO;
-import com.hiperium.messaging.service.client.DeviceService;
+import com.hiperium.messaging.common.service.DeviceServiceManager;
 
 /**
  * 
@@ -48,8 +49,9 @@ import com.hiperium.messaging.service.client.DeviceService;
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 public class DeviceBOImpl implements DeviceBO {
 
-	/** The property deviceService. */
-	private DeviceService deviceService;
+	/** The property deviceServiceManager. */
+	@EJB
+	private DeviceServiceManager deviceServiceManager;
 	
 	/** The property log. */
 	@Inject
@@ -69,7 +71,6 @@ public class DeviceBOImpl implements DeviceBO {
 	 */
 	@PostConstruct
 	public void init() {
-		this.deviceService = DeviceService.getInstance();
 		this.serializer = new JsonInstanceSerializer<ServiceDetailsDTO>(ServiceDetailsDTO.class); // Payload Serializer
 		this.serviceDiscovery = ServiceDiscoveryBuilder.builder(ServiceDetailsDTO.class)
 				.client(this.curatorClient)
@@ -85,7 +86,7 @@ public class DeviceBOImpl implements DeviceBO {
 	public void homeOperation(@NotNull DeviceDTO deviceDTO, @NotNull String tokenID) throws Exception {
 		this.log.debug("homeOperation - START");
 		// The token ID is the session identifier obtained from Hiperium Home at start up time.
-		this.deviceService.homeOperation(this.getServiceURI(ControlRegistryPath.DEVICE_HOME_OPERATION), deviceDTO, tokenID); 
+		this.deviceServiceManager.homeOperation(this.getServiceURI(ControlRegistryPath.DEVICE_HOME_OPERATION), deviceDTO, tokenID); 
 		this.log.debug("homeOperation - END");
 	}
 
