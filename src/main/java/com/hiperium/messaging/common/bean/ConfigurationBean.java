@@ -54,8 +54,10 @@ public class ConfigurationBean {
 	/** The property SERVER_HOST with value hiperium.server.host. */
 	public static final String SERVER_HOST = "hiperium.server.host";
 	
-	/** The CLOUD_DEVICE_QUEUE property path. */
-	public static final String CLOUD_DEVICE_QUEUE = "jms/queue/deviceQueue";
+	/** The USER_DEVICE_OPERATION_QUEUE property path jms/queue/userDeviceQueue. */
+	public static final String USER_DEVICE_OPERATION_QUEUE = "jms/queue/userDeviceQueue";
+	/** The HOME_DEVICE_OPERATION_QUEUE property path jms/queue/homeDeviceQueue. */
+	public static final String HOME_DEVICE_OPERATION_QUEUE = "jms/queue/homeDeviceQueue";
 	/** The CLOUD_DEVICE_TOPIC property path. */
 	public static final String CLOUD_DEVICE_TOPIC = "jms/topic/deviceTopic";
 	

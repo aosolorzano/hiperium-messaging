@@ -83,6 +83,16 @@ public class DeviceBOImpl implements DeviceBO {
 	 * {@inheritDoc}
 	 */
 	@Override
+	public void userOperation(@NotNull DeviceDTO deviceDTO, @NotNull String tokenID) throws Exception {
+		this.log.debug("userOperation - START");
+		this.deviceServiceManager.userOperation(this.getServiceURI(ControlRegistryPath.DEVICE_USER_OPERATION), deviceDTO, tokenID); 
+		this.log.debug("userOperation - END");
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public void homeOperation(@NotNull DeviceDTO deviceDTO, @NotNull String tokenID) throws Exception {
 		this.log.debug("homeOperation - START");
 		// The token ID is the session identifier obtained from Hiperium Home at start up time.

@@ -34,14 +34,14 @@ import com.hiperium.messaging.service.converter.DeviceConverter;
  * @author Andres Solorzano
  * 
  */
-@MessageDriven(name = "DeviceMDB", activationConfig = {
+@MessageDriven(name = "UserDeviceOperationMDB", activationConfig = {
 		@ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
-		@ActivationConfigProperty(propertyName = "destination",     propertyValue = ConfigurationBean.CLOUD_DEVICE_QUEUE),
+		@ActivationConfigProperty(propertyName = "destination",     propertyValue = ConfigurationBean.USER_DEVICE_OPERATION_QUEUE),
 		@ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "Auto-acknowledge")})
-public class DeviceMDB extends GenericBusinessObject implements MessageListener {
+public class UserDeviceOperationMDB extends GenericBusinessObject implements MessageListener {
 
 	/** The LOGGER property for logger messages. */
-	private static final HiperiumLogger LOGGER = HiperiumLogger.getLogger(DeviceMDB.class);
+	private static final HiperiumLogger LOGGER = HiperiumLogger.getLogger(UserDeviceOperationMDB.class);
 	
     /** The property deviceBO. */
     @EJB
@@ -71,7 +71,7 @@ public class DeviceMDB extends GenericBusinessObject implements MessageListener 
 			DeviceDTO deviceDTO = this.converter.fromJsonToDeviceDTO(jsonMessage);
 			// The token ID is the session identifier obtained from Hiperium Home at start up time.
 			if(deviceDTO != null && super.getSessionManagerBO().isUserLoggedIn(deviceDTO.getTokenId())) {
-				this.deviceBO.homeOperation(deviceDTO, deviceDTO.getTokenId());
+				this.deviceBO.userOperation(deviceDTO, deviceDTO.getTokenId());
 			}
 		} catch (Exception e) {
 			LOGGER.error("onMessage - ERROR: " + e.getMessage());

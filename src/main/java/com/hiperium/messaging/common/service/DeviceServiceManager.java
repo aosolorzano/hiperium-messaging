@@ -12,6 +12,7 @@
  */
 package com.hiperium.messaging.common.service;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.LocalBean;
 import javax.ejb.Lock;
 import javax.ejb.LockType;
@@ -48,13 +49,39 @@ public class DeviceServiceManager extends HttpClient {
 	private DeviceConverter converter;
 	
 	/**
+	 * Object initializer.
+	 */
+	@PostConstruct
+	public void init () {
+		this.converter = new DeviceConverter();
+	}
+	
+	/**
 	 * 
+	 * @param serviceURI
 	 * @param deviceDTO
+	 * @param tokenID
+	 */
+	public void userOperation(@NotNull String serviceURI, @NotNull DeviceDTO deviceDTO, @NotNull String tokenID) {
+		LOGGER.debug("userOperation - START");
+		try {
+			super.postToService(serviceURI, this.converter.toJSON(deviceDTO), "application/json", tokenID);
+		} catch (InformationException e) {
+			LOGGER.error(e.getMessage(), e);
+		}
+		LOGGER.debug("userOperation - END");
+	}
+	
+	/**
+	 * 
+	 * @param serviceURI
+	 * @param deviceDTO
+	 * @param tokenID
 	 */
 	public void homeOperation(@NotNull String serviceURI, @NotNull DeviceDTO deviceDTO, @NotNull String tokenID) {
 		LOGGER.debug("homeOperation - START");
 		try {
-			super.putToService(serviceURI, this.converter.toJSON(deviceDTO), "application/json", "text/plain", tokenID);
+			super.postToService(serviceURI, this.converter.toJSON(deviceDTO), "application/json", tokenID);
 		} catch (InformationException e) {
 			LOGGER.error(e.getMessage(), e);
 		}

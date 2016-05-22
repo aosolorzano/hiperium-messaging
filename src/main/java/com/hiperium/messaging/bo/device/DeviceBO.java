@@ -32,5 +32,13 @@ public interface DeviceBO {
 	 * @param tokenID
 	 * @throws Exception
 	 */
+	void userOperation(@NotNull DeviceDTO deviceDTO, @NotNull String tokenID) throws Exception;
+
+	/**
+	 * 
+	 * @param deviceDTO
+	 * @param tokenID
+	 * @throws Exception
+	 */
 	void homeOperation(@NotNull DeviceDTO deviceDTO, @NotNull String tokenID) throws Exception;
 }
