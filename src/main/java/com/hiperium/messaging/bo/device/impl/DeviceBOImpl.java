@@ -33,7 +33,7 @@ import org.apache.curator.x.discovery.details.JsonInstanceSerializer;
 
 import com.hiperium.commons.client.dto.DeviceDTO;
 import com.hiperium.commons.client.dto.ServiceDetailsDTO;
-import com.hiperium.commons.client.registry.path.ControlRegistryPath;
+import com.hiperium.commons.client.registry.path.DeviceRegistryPath;
 import com.hiperium.commons.services.logger.HiperiumLogger;
 import com.hiperium.messaging.bo.device.DeviceBO;
 import com.hiperium.messaging.common.service.DeviceServiceManager;
@@ -74,7 +74,7 @@ public class DeviceBOImpl implements DeviceBO {
 		this.serializer = new JsonInstanceSerializer<ServiceDetailsDTO>(ServiceDetailsDTO.class); // Payload Serializer
 		this.serviceDiscovery = ServiceDiscoveryBuilder.builder(ServiceDetailsDTO.class)
 				.client(this.curatorClient)
-				.basePath(ControlRegistryPath.BASE_PATH)
+				.basePath(DeviceRegistryPath.BASE_PATH)
 				.serializer(this.serializer)
 				.build();
 	}
@@ -85,7 +85,7 @@ public class DeviceBOImpl implements DeviceBO {
 	@Override
 	public void userOperation(@NotNull DeviceDTO deviceDTO, @NotNull String tokenID) throws Exception {
 		this.log.debug("userOperation - START");
-		this.deviceServiceManager.userOperation(this.getServiceURI(ControlRegistryPath.DEVICE_USER_OPERATION), deviceDTO, tokenID); 
+		this.deviceServiceManager.userOperation(this.getServiceURI(DeviceRegistryPath.DEVICE_USER_OPERATION), deviceDTO, tokenID); 
 		this.log.debug("userOperation - END");
 	}
 	
@@ -96,7 +96,7 @@ public class DeviceBOImpl implements DeviceBO {
 	public void homeOperation(@NotNull DeviceDTO deviceDTO, @NotNull String tokenID) throws Exception {
 		this.log.debug("homeOperation - START");
 		// The token ID is the session identifier obtained from Hiperium Home at start up time.
-		this.deviceServiceManager.homeOperation(this.getServiceURI(ControlRegistryPath.DEVICE_HOME_OPERATION), deviceDTO, tokenID); 
+		this.deviceServiceManager.homeOperation(this.getServiceURI(DeviceRegistryPath.DEVICE_HOME_OPERATION), deviceDTO, tokenID); 
 		this.log.debug("homeOperation - END");
 	}
 
