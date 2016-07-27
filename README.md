@@ -4,7 +4,7 @@ Author: Andres Solorzano
 Level: Advanced  
 Technologies: CDI, RESTful, JPA, EJB, JTA, NoSQL
 Summary: This project is the messaging service that gets and send JMS between the smart home and the Hiperium Cloud Platform.  
-Target Product: JBoss Application server 7.1.1
+Target Product: Wildfly Application Server 10.
 Source: <https://bitbucket.org/aosolorzano/hiperium-messaging>  
 
 What is it?
@@ -15,19 +15,30 @@ The Hiperium Messaging is a service of the hiperium Project for the Internet of 
 System requirements
 -------------------
 
-The application this project produces is designed to be run on Red Hat JBoss Application server 7.1.1.
+The application this project produces is designed to be run on Wildfly Application Server 10.
 
-All you need to build this project is Java 7.0 (Java SDK 1.7), Maven 3.0 or later.
+All you need to build this project is Java 7.0 (Java SDK 1.7), Maven 3.0 or later, and Docker 1.10 or later.
 
 
-Start the JBoss Wildfly Server
--------------------------
+Docker Image
+-------------------
 
-1. Open a command prompt and navigate to the root of the JBoss Wildfly directory.
-2. The following shows the command line to start the server:
+This repository contains the instructions needed to create a docker image based on the Hiperium Messaging Service.
 
-        For Linux:   JBOSS_HOME/bin/standalone.sh --server-config=standalone-full.xml
-        For Windows: JBOSS_HOME\bin\standalone.bat --server-config=standalone-full.xml
+
+Dependencies
+-------------------
+
+Docker Engine
+
+
+Deploying
+-------------------
+
+Execute the following commands to run the docker image in your host computer:
+
+* docker pull hiperium/hiperium-messaging
+* docker run -it -d hiperium/hiperium-messaging
 
 
 Access the application 

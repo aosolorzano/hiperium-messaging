@@ -1,0 +1,7 @@
+## Batch file to configure the standalone server for the cluster-mdb quickstart.
+
+# -- Enable clustering, and set a cluster password
+/subsystem=messaging-activemq/server=default:write-attribute(name=cluster-password, value=H1pe1umJMS2@16)
+
+# Reload the server
+:reload
