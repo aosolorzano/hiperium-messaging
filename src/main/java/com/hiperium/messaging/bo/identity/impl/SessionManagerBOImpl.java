@@ -12,9 +12,6 @@
  */
 package com.hiperium.messaging.bo.identity.impl;
 
-import java.util.Collection;
-
-import javax.annotation.PostConstruct;
 import javax.ejb.DependsOn;
 import javax.ejb.EJB;
 import javax.ejb.Lock;
@@ -23,17 +20,8 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
-import javax.inject.Inject;
 
-import org.apache.curator.framework.CuratorFramework;
-import org.apache.curator.x.discovery.ServiceDiscovery;
-import org.apache.curator.x.discovery.ServiceDiscoveryBuilder;
-import org.apache.curator.x.discovery.ServiceInstance;
-import org.apache.curator.x.discovery.details.JsonInstanceSerializer;
-
-import com.hiperium.commons.client.dto.ServiceDetailsDTO;
 import com.hiperium.commons.client.exception.InformationException;
-import com.hiperium.commons.client.registry.path.IdentityRegistryPath;
 import com.hiperium.messaging.bo.identity.SessionManagerBO;
 import com.hiperium.messaging.common.service.IdentityServiceManager;
 
@@ -55,34 +43,12 @@ public class SessionManagerBOImpl implements SessionManagerBO {
 	@EJB
 	private IdentityServiceManager identityServiceManager;
 	
-	/** The property curatorClient. */
-	@Inject
-	private CuratorFramework curatorClient;
-	
-	/** The property serviceDiscovery. */
-	private ServiceDiscovery<ServiceDetailsDTO> serviceDiscovery;
-	/** The property serializer. */
-	private JsonInstanceSerializer<ServiceDetailsDTO> serializer;
-	
-	/**
-	 * Component initialization.
-	 */
-	@PostConstruct
-	public void init() {
-		this.serializer = new JsonInstanceSerializer<ServiceDetailsDTO>(ServiceDetailsDTO.class); // Payload Serializer
-		this.serviceDiscovery = ServiceDiscoveryBuilder.builder(ServiceDetailsDTO.class)
-				.client(this.curatorClient)
-				.basePath(IdentityRegistryPath.BASE_PATH)
-				.serializer(this.serializer)
-				.build();
-	}
-	
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public boolean isUserLoggedIn(String userToken) throws InformationException {
-		return this.identityServiceManager.isUserLoggedIn(this.getServiceURI(IdentityRegistryPath.IS_USER_LOGGED_IN), userToken);
+		return this.identityServiceManager.isUserLoggedIn("", userToken);
 	}
 	
 	/**
@@ -90,30 +56,7 @@ public class SessionManagerBOImpl implements SessionManagerBO {
 	 */
 	@Override
 	public boolean isHomeLoggedIn(String homeToken) throws InformationException {
-		return this.identityServiceManager.isHomeLoggedIn(this.getServiceURI(IdentityRegistryPath.IS_HOME_LOGGED_IN), homeToken);
-	}
-	
-	/**
-	 * 
-	 * @param serviceRegistryPath
-	 * @return
-	 * @throws Exception
-	 */
-	private String getServiceURI(String serviceRegistryPath) throws InformationException {
-		Collection<ServiceInstance<ServiceDetailsDTO>> services;
-		try {
-			services = this.serviceDiscovery.queryForInstances(serviceRegistryPath);
-			if(services == null || services.isEmpty()) {
-	        	throw new Exception("No results found for querying services called: " + serviceRegistryPath);
-	        } else {
-	        	for(final ServiceInstance<ServiceDetailsDTO> service : services) {
-	        		return service.buildUriSpec();
-	            }
-	        }
-		} catch (Exception e) {
-			throw new InformationException(e.getMessage());
-		}
-		return null;
+		return this.identityServiceManager.isHomeLoggedIn("", homeToken);
 	}
 
 }
